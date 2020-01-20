@@ -1,8 +1,40 @@
+#version: "3"
+#services:
+#  api:
+#    build: ./api
+#    container_name: api_nodejs
+##    volumes:
+##      - ./api:./api:rw
+#    ports:
+#      - "8000:8000"
+#    links:
+#      - mongo
+#
+#  mongo:
+#    container_name: mongo
+#    image: mongo
+#    ports:
+#      - "27017:27017"
+
 version: "3"
 services:
-  api:
-    build: api/
-#    command: node ./server.js
-    container_name: api_nodejs
+  mongo:
+    image: mongo:3.6
+    container_name: mongo
+    volumes:
+      - ./docker/mongo:/data/db
     ports:
-      - "3000:3000"
+      - "27017:27017"
+
+  api:
+    container_name: api_nodejs
+    image: node:13
+    working_dir: /home/node/api
+    user: node
+    environment:
+      MONGO_URL: mongodb://mongo:27017/node_api
+    volumes:
+      - ./api:/home/node/api
+    ports:
+      - "8000:8000"
+    command: ./wait-for-it mongo:27017 -- npm run dev

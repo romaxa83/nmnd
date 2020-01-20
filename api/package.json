@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "start-dev": "nodemon server.js"
+    "start": "NODE_ENV=production node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Rodomano Roman <romaxa83@ukr.net>",
   "license": "ISC",
@@ -13,7 +13,10 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "bcryptjs": "^2.4.3"
+    "mongoose": "^5.8.9",
+    "morgan": "^1.9.1"
   }
 }
