@@ -6,7 +6,7 @@ const {
     createPost,
     updatePost,
     deletePost,
-} = require('../controllers/blog');
+} = require('../controllers/post');
 
 router
     .route('/')

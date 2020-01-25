@@ -1,28 +1,11 @@
-#version: "3"
-#services:
-#  api:
-#    build: ./api
-#    container_name: api_nodejs
-##    volumes:
-##      - ./api:./api:rw
-#    ports:
-#      - "8000:8000"
-#    links:
-#      - mongo
-#
-#  mongo:
-#    container_name: mongo
-#    image: mongo
-#    ports:
-#      - "27017:27017"
-
 version: "3"
 services:
   mongo:
     image: mongo:3.6
     container_name: mongo
     volumes:
-      - ./docker/mongo:/data/db
+      - ./docker/mongo/db:/data/db
+      - ./docker/mongo/log/:/var/log/mongodb/
     ports:
       - "27017:27017"
 

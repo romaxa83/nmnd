@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-
 const morgan = require('morgan');
+const connectDB = require('./config/db');
+const errorHandler = require('./middleware/error');
 
 const dotenv = require('dotenv');
 dotenv.config({ path: './config/config.env' });
@@ -12,8 +13,11 @@ const MONGO_URL = process.env.MONGO_URL || `mongodb://localhost:27017/node_api`;
 const version = process.version;
 
 const homeRoutes = require('./routes/home');
-const blogRoutes = require('./routes/blog');
-
+const postRoutes = require('./routes/post');
+const bootcampRoutes = require('./routes/bootcamp');
+//-----------------------------------------
+//Body parser
+app.use(express.json());
 //------------------------------------------
 // Dev Logging middleware
 if(process.env.NODE_ENV === 'development'){
@@ -21,16 +25,17 @@ if(process.env.NODE_ENV === 'development'){
 }
 //------------------------------------------
 app.use('/', homeRoutes);
-app.use('/api/blog', blogRoutes);
+app.use('/api/bootcamp', bootcampRoutes);
+app.use('/api/post', postRoutes);
+
+// важно подключить его после роутов
+app.use(errorHandler);
 
 async function start()
 {
     try {
 
-        // подключаемся к базе данных
-        await mongoose.connect(MONGO_URL, {
-            useNewUrlParser: true
-        });
+        connectDB();
 
         // запускаем приложение
         app.listen(PORT, () => {
