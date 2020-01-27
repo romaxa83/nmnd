@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d8595113-fe22-424c-96ea-7db39d36af62" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/api/_data/bootcamps.json" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/api/_data/courses.json" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/api/_data/reviews.json" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/api/_data/users.json" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/api/seeder.js" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/api/_data/bootcamps.json" afterPath="$PROJECT_DIR$/api/_data/bootcamps.json" />
       <change beforePath="$PROJECT_DIR$/api/controllers/bootcamp.js" afterPath="$PROJECT_DIR$/api/controllers/bootcamp.js" />
-      <change beforePath="$PROJECT_DIR$/api/package-lock.json" afterPath="$PROJECT_DIR$/api/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/api/package.json" afterPath="$PROJECT_DIR$/api/package.json" />
-      <change beforePath="$PROJECT_DIR$/api/routes/bootcamp.js" afterPath="$PROJECT_DIR$/api/routes/bootcamp.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bootcamp.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bootcamp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/controllers/bootcamp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="103" column="38" lean-forward="true" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
+            <state relative-caret-position="18">
+              <caret line="12" column="34" lean-forward="false" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -82,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bootcamps.json" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bootcamps.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/_data/bootcamps.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1188">
-              <caret line="66" column="1" lean-forward="false" selection-start-line="66" selection-start-column="1" selection-end-line="66" selection-end-column="1" />
+            <state relative-caret-position="340">
+              <caret line="69" column="3" lean-forward="false" selection-start-line="69" selection-start-column="3" selection-end-line="69" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -162,13 +154,13 @@
         <option value="$PROJECT_DIR$/api/config/config.env" />
         <option value="$PROJECT_DIR$/api/utils/geocoder.js" />
         <option value="$PROJECT_DIR$/api/models/bootcamp.js" />
-        <option value="$PROJECT_DIR$/api/_data/bootcamps.json" />
         <option value="$PROJECT_DIR$/api/_data/users.json" />
         <option value="$PROJECT_DIR$/api/_data/reviews.json" />
         <option value="$PROJECT_DIR$/api/_data/courses.json" />
         <option value="$PROJECT_DIR$/api/seeder.js" />
         <option value="$PROJECT_DIR$/api/routes/bootcamp.js" />
         <option value="$PROJECT_DIR$/api/controllers/bootcamp.js" />
+        <option value="$PROJECT_DIR$/api/_data/bootcamps.json" />
       </list>
     </option>
   </component>
@@ -189,8 +181,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="140" />
-    <option name="y" value="223" />
+    <option name="x" value="153" />
+    <option name="y" value="203" />
     <option name="width" value="1436" />
     <option name="height" value="645" />
   </component>
@@ -221,6 +213,12 @@
               <item name="nmnd" type="b2602c69:ProjectViewProjectNode" />
               <item name="nmnd" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="api" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="nmnd" type="b2602c69:ProjectViewProjectNode" />
+              <item name="nmnd" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="api" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="_data" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="nmnd" type="b2602c69:ProjectViewProjectNode" />
@@ -297,15 +295,15 @@
       <workItem from="1579678045065" duration="616000" />
       <workItem from="1579714620555" duration="2474000" />
       <workItem from="1579937294851" duration="21791000" />
-      <workItem from="1580137615649" duration="6759000" />
+      <workItem from="1580137615649" duration="8539000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53087000" />
+    <option name="totallyTimeSpent" value="54867000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="140" y="223" width="1436" height="645" extended-state="0" />
+    <frame x="153" y="203" width="1436" height="645" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28129497" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -642,14 +640,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/_data/bootcamps.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1188">
-          <caret line="66" column="1" lean-forward="false" selection-start-line="66" selection-start-column="1" selection-end-line="66" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/_data/users.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="358">
@@ -700,8 +690,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/controllers/bootcamp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="103" column="38" lean-forward="true" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
+        <state relative-caret-position="18">
+          <caret line="12" column="34" lean-forward="false" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/_data/bootcamps.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="69" column="3" lean-forward="false" selection-start-line="69" selection-start-column="3" selection-end-line="69" selection-end-column="3" />
           <folding />
         </state>
       </provider>
