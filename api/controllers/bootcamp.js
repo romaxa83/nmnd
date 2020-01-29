@@ -8,14 +8,37 @@ const asyncHandler = require('../middleware/async');
 // @access  Public
 exports.getBootcamps = asyncHandler(async (req, res, next) => {
     let query;
+    // Copy req.query
+    const reqQuery = { ...req.query };
+
+    // удаляем параметр select и sort,чтоб они не попали с данным для фильтрации фильтрации
+    const removeFields = ['select', 'sort'];
+    removeFields.forEach(param => delete reqQuery[param]);
+
+    // create query string
     // получаем query - параметры для фильтрации
-    let queryStr = JSON.stringify(req.query);
+    let queryStr = JSON.stringify(reqQuery);
     // если приходи в таком ввиде(averageCost[lte]=100) то к lte добавляем символ '$'
     // т.к. mongo нужно передать $lte
     // @see https://docs.mongodb.com/manual/reference/operator/query/lte/
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
     query = Bootcamp.find(JSON.parse(queryStr));
+
+    // указываем те поля которые нужно вернуть
+    // если был запрос по типу '?select=name,description'
+    if(req.query.select){
+        const fields = req.query.select.split(',').join(' ');
+        query = query.select(fields);
+    }
+
+    // сортируем
+    if(req.query.sort){
+        const sortBy = req.query.sort.split(',').join(' ');
+        query = query.sort(sortBy);
+    } else {
+        query = query.sort('-createdAt');
+    }
 
     const bootcamps = await query;
 
