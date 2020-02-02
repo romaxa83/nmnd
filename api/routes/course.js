@@ -8,9 +8,16 @@ const {
     deleteCourse
 } = require('../controllers/course');
 
+const Course = require('../models/course');
+// подключаем мидлевар для продвинутого результата (пагинаци,сортировка,выборка полей)
+const advancedResult = require('../middleware/advancedResult');
+
 router
     .route('/')
-    .get(getCourses)
+    .get(advancedResult(Course, {
+        path: 'bootcamp',
+        select: 'name description'
+    }), getCourses)
     .post(addCourse);
 
 router

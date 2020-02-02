@@ -10,6 +10,10 @@ const {
     bootcampPhotoUpload
 } = require('../controllers/bootcamp');
 
+const Bootcamp = require('../models/bootcamp');
+// подключаем мидлевар для продвинутого результата (пагинаци,сортировка,выборка полей)
+const advancedResult = require('../middleware/advancedResult');
+
 // Include other resource routers
 const courseRouter = require('./course');
 // Re-route into other resource routers
@@ -21,7 +25,7 @@ router.route('/:id/photo').put(bootcampPhotoUpload);
 
 router
     .route('/')
-    .get(getBootcamps)
+    .get(advancedResult(Bootcamp, 'courses'), getBootcamps)
     .post(createBootcamp);
 
 router

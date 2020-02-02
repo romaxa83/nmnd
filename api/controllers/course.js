@@ -8,26 +8,38 @@ const asyncHandler = require('../middleware/async');
 // @route   GET /api/bootcamps :bootcampId/courses
 // @access  Public
 exports.getCourses = asyncHandler(async (req, res, next) => {
-    let query;
-    // контроллер обрабатывает два пути (все курса и все курса по конкретному лагерю)
-    if(req.params.bootcampId){
-        query = Course.find({ bootcamp: req.params.bootcampId});
+    // let query;
+    // // контроллер обрабатывает два пути (все курса и все курса по конкретному лагерю)
+    // if(req.params.bootcampId){
+    //     query = Course.find({ bootcamp: req.params.bootcampId});
+    // } else {
+    //     // populate связывает с bootcamp (если нужны все данные первый пример, если выборочные - втрой пример)
+    //     // query = Course.find().populate('bootcamp');
+    //     query = Course.find().populate({
+    //         path: 'bootcamp',
+    //         select: 'name description'
+    //     });
+    // }
+    //
+    // const courses = await query;
+    //
+    // res.status(200).json({
+    //     success: true,
+    //     count: courses.length,
+    //     data: courses
+    // })
+
+    if(req.params.bootcampId) {
+        const courses = await Course.find({ bootcamp: req.params.bootcampId});
+
+        res.status(200).json({
+            success: true,
+            count: courses.length,
+            data: courses
+        })
     } else {
-        // populate связывает с bootcamp (если нужны все данные первый пример, если выборочные - втрой пример)
-        // query = Course.find().populate('bootcamp');
-        query = Course.find().populate({
-            path: 'bootcamp',
-            select: 'name description'
-        });
+        res.status(200).json(res.advancedResult)
     }
-
-    const courses = await query;
-
-    res.status(200).json({
-        success: true,
-        count: courses.length,
-        data: courses
-    })
 });
 
 // @desc    Get one course
