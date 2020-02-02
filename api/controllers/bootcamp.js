@@ -23,7 +23,7 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
     // @see https://docs.mongodb.com/manual/reference/operator/query/lte/
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
-    query = Bootcamp.find(JSON.parse(queryStr));
+    query = Bootcamp.find(JSON.parse(queryStr)).populate('courses');
 
     // указываем те поля которые нужно вернуть
     // если был запрос по типу '?select=name,description'
@@ -131,11 +131,17 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
 // @access  Private
 exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
 
-    const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+    // первый пример закоментирован т.к. на нем не срабатывает мидлевар при удалении (
+    // для срабатывания триггера 'remove' , нужно использовать метод remove)
+
+    // const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+    const bootcamp = await Bootcamp.findById(req.params.id);
 
     if (!bootcamp) {
         return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404));
     }
+
+    bootcamp.remove();
 
     res.status(200).json({
         success: true,

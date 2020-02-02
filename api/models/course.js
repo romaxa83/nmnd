@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
 
 const CourseSchema = new mongoose.Schema({
     title: {
@@ -8,7 +7,6 @@ const CourseSchema = new mongoose.Schema({
         trim: true,
         maxLength: [50, 'Name can not be more than 50 characters']
     },
-    slug: String,
     description: {
         type: String,
         required: [true, 'Please add a course description'],

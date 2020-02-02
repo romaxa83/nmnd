@@ -15,6 +15,7 @@ const version = process.version;
 const homeRoutes = require('./routes/home');
 const postRoutes = require('./routes/post');
 const bootcampRoutes = require('./routes/bootcamp');
+const courseRoutes = require('./routes/course');
 //-----------------------------------------
 //Body parser
 app.use(express.json());
@@ -26,6 +27,7 @@ if(process.env.NODE_ENV === 'development'){
 //------------------------------------------
 app.use('/', homeRoutes);
 app.use('/api/bootcamp', bootcampRoutes);
+app.use('/api/course', courseRoutes);
 app.use('/api/post', postRoutes);
 
 // важно подключить его после роутов

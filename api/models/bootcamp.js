@@ -98,6 +98,12 @@ const BootcampSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+}, {
+    // @see https://mongoosejs.com/docs/api/virtualtype.html
+    // виртуальное поле, описаное ниже, для курсов (связь один ко многим),
+    // также в запросе нужно присоединить связаную модель (.populate('courses'))
+    toJSON: { virtuals: true},
+    toObject: { virtuals: true}
 });
 //------------------------------------------------
 // Мидлевары отрабатывающие при сохранени модели
@@ -127,5 +133,20 @@ BootcampSchema.pre('save', async function(next) {
     this.address = undefined;
     next();
 });
+
+// Мидлевар для удаление всех (связаных) курсов при удалении лагеря
+BootcampSchema.pre('remove', async function(next){
+    console.log(`Courses being removed from bootcamp ${this._id}`);
+    await this.model('Course').deleteMany({ bootcamp: this._id });
+    next();
+});
 //------------------------------------------------
+//Reverse populate with virtuals
+BootcampSchema.virtual('courses', {
+    ref: 'Course',              // с какой модели связываем
+    localField: '_id',          // поле в данной модели
+    foreignField: 'bootcamp',   // поле в связываемой модели
+    justOne: false
+});
+
 module.exports = mongoose.model('Bootcamp', BootcampSchema);
