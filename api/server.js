@@ -18,6 +18,7 @@ const homeRoutes = require('./routes/home');
 const postRoutes = require('./routes/post');
 const bootcampRoutes = require('./routes/bootcamp');
 const courseRoutes = require('./routes/course');
+const authRoutes = require('./routes/auth');
 //-----------------------------------------
 //Body parser
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
 //------------------------------------------
 app.use('/', homeRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/bootcamp', bootcampRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/post', postRoutes);
