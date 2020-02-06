@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -20,8 +21,10 @@ const bootcampRoutes = require('./routes/bootcamp');
 const courseRoutes = require('./routes/course');
 const authRoutes = require('./routes/auth');
 //-----------------------------------------
-//Body parser
+// Body parser
 app.use(express.json());
+// Cookie parser
+app.use(cookieParser());
 //------------------------------------------
 // Dev Logging middleware
 if(process.env.NODE_ENV === 'development'){

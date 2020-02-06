@@ -12,18 +12,21 @@ const Course = require('../models/course');
 // подключаем мидлевар для продвинутого результата (пагинаци,сортировка,выборка полей)
 const advancedResult = require('../middleware/advancedResult');
 
+// подключаем роут для проверки авторизации
+const { protect } = require('../middleware/auth');
+
 router
     .route('/')
     .get(advancedResult(Course, {
         path: 'bootcamp',
         select: 'name description'
     }), getCourses)
-    .post(addCourse);
+    .post(protect, addCourse);
 
 router
     .route('/:id')
     .get(getCourse)
-    .put(updateCourse)
-    .delete(deleteCourse);
+    .put(protect, updateCourse)
+    .delete(protect, deleteCourse);
 
 module.exports = router;
