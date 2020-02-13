@@ -21,3 +21,11 @@ services:
     ports:
       - "8000:8000"
     command: ./wait-for-it mongo:27017 -- npm run dev
+
+  mailer:
+    container_name: mailer
+    image: mailhog/mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8001:8025"

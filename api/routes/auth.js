@@ -3,7 +3,8 @@ const router = Router();
 const {
     register,
     login,
-    getMe
+    getMe,
+    forgotPassword
 } = require('../controllers/auth');
 
 // подключаем роут для проверки авторизации
@@ -18,5 +19,7 @@ router
     .post(login);
 
 router.get('/me', protect, getMe);
+
+router.post('/forgot-password', forgotPassword);
 
 module.exports = router;
