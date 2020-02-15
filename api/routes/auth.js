@@ -4,7 +4,10 @@ const {
     register,
     login,
     getMe,
-    forgotPassword
+    forgotPassword,
+    resetPassword,
+    updateDetails,
+    updatePassword
 } = require('../controllers/auth');
 
 // подключаем роут для проверки авторизации
@@ -21,5 +24,9 @@ router
 router.get('/me', protect, getMe);
 
 router.post('/forgot-password', forgotPassword);
+
+router.put('/reset-password/:resetToken', resetPassword);
+router.put('/update-details', protect, updateDetails);
+router.put('/update-password', protect, updatePassword);
 
 module.exports = router;

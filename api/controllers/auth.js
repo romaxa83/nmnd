@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/user');
 const asyncHandler = require('../middleware/async');
@@ -32,13 +33,13 @@ exports.login = asyncHandler(async (req, res, next) => {
 
     // Check for user (к паролю добавляем '+' , т.к. он указан в модели как не выбираемый,а так мы его получим)
     const user = await User.findOne({ email }).select('+password');
-
     if(!user){
         return next(new ErrorResponse('Invalid credentials', 401));
     }
+    // Check if password matches (!!! не отрабатывает)
+    const isMatch = await user.matchPassword(password);
 
-    // Check if password matches
-    const isMatch = user.matchPassword(password);
+    console.log('M' + isMatch);
 
     if(!isMatch) {
         return next(new ErrorResponse('Invalid credentials', 401));
@@ -60,6 +61,46 @@ exports.getMe = asyncHandler(async (req, res, next) => {
     });
 });
 
+// @desc    Update user details
+// @route   PUT /api/auth/update-details
+// @access  Private
+exports.updateDetails = asyncHandler(async (req, res, next) => {
+
+    const fieldsToUpdate = {
+        name: req.body.name,
+        email: req.body.email,
+    };
+
+    const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
+        new: true,
+        runValidators: true
+    });
+
+    res.status(200).json({
+        success: true,
+        data: user
+    });
+});
+
+// @desc    Update password
+// @route   PUT /api/auth/update-password
+// @access  Private
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+
+
+    const user = await User.findById(req.user.id).select('+password');
+
+    // checkPassword
+    if(!(await user.matchPassword(req.body.currentPassword))){
+        return next(new ErrorResponse('Password is incorrect', 401));
+    }
+
+    user.password = req.body.newPassword;
+    await user.save();
+
+    sendTokenResponse(user, 200, res);
+});
+
 // @desc    Forgot password
 // @route   POST /api/auth/forgot-password
 // @access  Public
@@ -77,7 +118,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     // Create reset url
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/reset-password/${resetToken}`;
+    const resetUrl = `${req.protocol}://${req.get('host')}/api/auth/reset-password/${resetToken}`;
 
     const message = `You are receving this email because you has requested the reset of a 
     password. Please make a PUT request to: n\n\ ${resetUrl}`;
@@ -103,6 +144,33 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
         return next(new ErrorResponse('Email could not be sent', 500));
     }
+});
+
+// @desc    Reset password
+// @route   PUT /api/auth/reset-password/:resetToken
+// @access  Public
+exports.resetPassword = asyncHandler(async (req, res, next) => {
+
+    // получаем хэш токена,т.к. в бд ма сохраняем хешированый токен
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.resetToken).digest('hex');
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() }
+    });
+
+    if(!user){
+        return next(new ErrorResponse('Invalid token', 400));
+    }
+
+    // set new password
+    user.password = req.body.password;
+    console.log('NEW PASS' + req.body.password);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save();
+
+    sendTokenResponse(user, 200, res);
 });
 
 // Get token(jwt) from model, create cookie and send response

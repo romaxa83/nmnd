@@ -24,6 +24,7 @@ docker_down:
 
 info:
 	echo "http://localhost:8000"
+	echo "Mailer http://localhost:8001"
 
 permission:
 	sudo chmod 777 -R docker
