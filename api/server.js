@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 const mongoose = require('mongoose');
+const mongoSanitize = require('express-mongo-sanitize');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
 const fileUpload = require('express-fileupload');
@@ -34,6 +35,8 @@ if(process.env.NODE_ENV === 'development'){
 }
 //FileUpload
 app.use(fileUpload());
+// Sanitize data (for nosql - injection)
+app.use(mongoSanitize());
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));

@@ -3,6 +3,7 @@ const router = Router();
 const {
     register,
     login,
+    logout,
     getMe,
     forgotPassword,
     resetPassword,
@@ -20,6 +21,8 @@ router
 router
     .route('/login')
     .post(login);
+
+router.get('/logout', protect, logout);
 
 router.get('/me', protect, getMe);
 
