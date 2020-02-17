@@ -20,6 +20,8 @@ const postRoutes = require('./routes/post');
 const bootcampRoutes = require('./routes/bootcamp');
 const courseRoutes = require('./routes/course');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const reviewsRoutes = require('./routes/review');
 //-----------------------------------------
 // Body parser
 app.use(express.json());
@@ -40,7 +42,9 @@ app.use('/', homeRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/bootcamp', bootcampRoutes);
 app.use('/api/course', courseRoutes);
+app.use('/api/reviews', reviewsRoutes);
 app.use('/api/post', postRoutes);
+app.use('/api/admin/users', userRoutes);
 
 // важно подключить его после роутов
 app.use(errorHandler);

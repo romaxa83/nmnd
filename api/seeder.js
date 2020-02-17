@@ -9,6 +9,7 @@ dotenv.config({path: './config/config.env'});
 const Bootcamp = require('./models/bootcamp');
 const Course = require('./models/course');
 const User = require('./models/user');
+const Review = require('./models/review');
 
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -30,6 +31,10 @@ const users = JSON.parse(
     fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
 );
 
+const reviews = JSON.parse(
+    fs.readFileSync(`${__dirname}/_data/reviews.json`, 'utf-8')
+);
+
 //import into db
 const importData = async () => {
     try {
@@ -41,6 +46,9 @@ const importData = async () => {
 
         await User.create(users);
         console.log('Users data imported...'.green.inverse);
+
+        await Review.create(reviews);
+        console.log('Reviews data imported...'.green.inverse);
 
         process.exit();
     } catch (err) {
@@ -59,6 +67,9 @@ const deleteData = async () => {
 
         await User.deleteMany();
         console.log('Users data destroyed...'.red.inverse);
+
+        await Review.deleteMany();
+        console.log('Reviews data destroyed...'.red.inverse);
 
         process.exit();
     } catch (err) {
