@@ -1,5 +1,12 @@
 const path = require('path');
 const express = require('express');
+//------FOR SECURITY-----------------
+const helmet = require('helmet');
+const xssClean = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors');
+//----------------------------------
 const cookieParser = require('cookie-parser');
 const app = express();
 const mongoose = require('mongoose');
@@ -35,8 +42,26 @@ if(process.env.NODE_ENV === 'development'){
 }
 //FileUpload
 app.use(fileUpload());
+
+//----------------------------------------
+//---- FOR SECURITY ----------------------
 // Sanitize data (for nosql - injection)
 app.use(mongoSanitize());
+// Set security headers
+app.use(helmet());
+// Prevent XSS attacks
+app.use(xssClean());
+// Rate limit
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 100 // кол-во запросов за время указаное выше
+});
+app.use(limiter);
+// Prevent http param pollution
+app.use(hpp());
+// Enable CORS
+app.use(cors());
+//--------------------------------------
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
